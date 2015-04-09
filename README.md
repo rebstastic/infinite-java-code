@@ -1,4 +1,4 @@
-Introduction to Java programming language.
+Introduction to Java programming language - an extra course.
 
 One or two homework assignments per week.
 
