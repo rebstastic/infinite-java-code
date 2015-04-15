@@ -25,6 +25,11 @@ public class SimpleHashtable implements Iterable<SimpleHashtable.TableEntry> {
 	 * capacity is automatically increased.
 	 */
 	private static final double LOAD_FACTOR = 0.75;
+	
+	/**
+	 * Default capacity.
+	 */
+	private static final int DEFAULT_CAPACITY = 16;
 
 	/**
 	 * The number of times this hash table has been modified. The methods that
@@ -49,7 +54,7 @@ public class SimpleHashtable implements Iterable<SimpleHashtable.TableEntry> {
 	 * initial capacity of 16 slots.
 	 */
 	public SimpleHashtable() {
-		this(16);
+		this(DEFAULT_CAPACITY);
 	}
 
 	/**
@@ -66,12 +71,22 @@ public class SimpleHashtable implements Iterable<SimpleHashtable.TableEntry> {
 		if (initialCapacity < 0) {
 			throw new IllegalArgumentException("Capacity can't be negative!");
 		}
+		int capacity = rehash(initialCapacity);
+		modificationCount = 0;
+		table = new TableEntry[capacity];
+	}
+	
+	/**
+	 * Returns the first power of two greater or equal than given initial capacity.
+	 * @param initialCapacity Initial capacity.
+	 * @return First power of two  greater or equal than given initial capacity.
+	 */
+	private int rehash(int initialCapacity) {
 		int newCapacity = 1;
 		while (newCapacity < initialCapacity) {
 			newCapacity *= 2;
 		}
-		modificationCount = 0;
-		table = new TableEntry[newCapacity];
+		return newCapacity;
 	}
 
 	/**
@@ -82,7 +97,7 @@ public class SimpleHashtable implements Iterable<SimpleHashtable.TableEntry> {
 	 *            The key to hash.
 	 * @return The number of slot suitable for the given key.
 	 */
-	private int hash(Object key) {
+	private int getSlot(Object key) {
 		if (key == null) {
 			throw new IllegalArgumentException("Key can't be null!");
 		}
@@ -104,7 +119,7 @@ public class SimpleHashtable implements Iterable<SimpleHashtable.TableEntry> {
 		if (key == null) {
 			throw new IllegalArgumentException("Key can't be null!");
 		}
-		int slot = hash(key);
+		int slot = getSlot(key);
 		if (table[slot] == null) {
 			// The first element in the slot.
 			table[slot] = new TableEntry(key, value, null);
@@ -181,7 +196,7 @@ public class SimpleHashtable implements Iterable<SimpleHashtable.TableEntry> {
 		if (key == null) {
 			throw new IllegalArgumentException("Key can't be null!");
 		}
-		int slot = hash(key);
+		int slot = getSlot(key);
 		if (table[slot] != null) {
 			for (TableEntry entry = table[slot]; entry != null; entry = entry.next) {
 				if (entry.getKey().equals(key))
@@ -235,7 +250,7 @@ public class SimpleHashtable implements Iterable<SimpleHashtable.TableEntry> {
 		if (key == null) {
 			throw new IllegalArgumentException("Key can't be null!");
 		}
-		int slot = hash(key);
+		int slot = getSlot(key);
 		for (TableEntry entry = table[slot]; entry != null; entry = entry.next) {
 			if (entry.getKey().equals(key))
 				return true;
@@ -258,7 +273,7 @@ public class SimpleHashtable implements Iterable<SimpleHashtable.TableEntry> {
 			throw new IllegalArgumentException("Key can't be null!");
 		}
 
-		int slot = hash(key);
+		int slot = getSlot(key);
 		for (TableEntry entry = table[slot], previous = null; entry != null; previous = entry, entry = entry.next) {
 			if (entry.getKey().equals(key)) {
 				if (previous != null) {
@@ -522,7 +537,7 @@ public class SimpleHashtable implements Iterable<SimpleHashtable.TableEntry> {
 			if (modificationCount != expectedModificationCount) {
 				throw new ConcurrentModificationException();
 			}
-			int slot = hash(lastReturned.getKey());
+			int slot = getSlot(lastReturned.getKey());
 			for (TableEntry entry = t[slot], prev = null; entry != null; prev = entry, entry = entry.next) {
 				if (entry.getKey().equals(lastReturned.getKey())) {
 					modificationCount++;
