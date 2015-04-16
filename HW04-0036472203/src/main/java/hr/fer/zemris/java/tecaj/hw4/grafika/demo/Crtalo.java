@@ -108,7 +108,8 @@ public class Crtalo {
 		for (GeometrijskiLik lik : likovi) {
 			lik.popuniLik(slika);
 		}
-		PrikaznikSlike.prikaziSliku(slika, 2);
+		
+		PrikaznikSlike.prikaziSliku(slika);
 	}
 
 	/**

@@ -35,9 +35,12 @@ public class Elipsa extends GeometrijskiLik {
 	 * Konstruktor. Inicijalizira centar elipse, vodoravni i okomiti radijus
 	 * elipse.
 	 * 
-	 * @param centar Centar elipse.
-	 * @param rVodoravni Vodoravni radijus elipse.
-	 * @param rOkomiti Okomiti radijus elipse.
+	 * @param centar
+	 *            Centar elipse.
+	 * @param rVodoravni
+	 *            Vodoravni radijus elipse.
+	 * @param rOkomiti
+	 *            Okomiti radijus elipse.
 	 */
 	public Elipsa(Tocka centar, int rVodoravni, int rOkomiti) {
 		super();
@@ -57,6 +60,7 @@ public class Elipsa extends GeometrijskiLik {
 
 	/**
 	 * Vraća centar elipse.
+	 * 
 	 * @return Centar elipse.
 	 */
 	public Tocka getCentar() {
@@ -65,6 +69,7 @@ public class Elipsa extends GeometrijskiLik {
 
 	/**
 	 * Vraća vodoravni radijus elipse.
+	 * 
 	 * @return Vodoravni radijus elipse.
 	 */
 	public int getrVodoravni() {
@@ -73,6 +78,7 @@ public class Elipsa extends GeometrijskiLik {
 
 	/**
 	 * Vraća okomiti radijus elipse.
+	 * 
 	 * @return Okomiti radijus elipse.
 	 */
 	public int getrOkomiti() {
@@ -81,10 +87,11 @@ public class Elipsa extends GeometrijskiLik {
 
 	@Override
 	public boolean sadrziTocku(int x, int y) {
-		int razlikaX = (int) Math.pow((x - centar.x), 2);
-		int razlikaY = (int) Math.pow((y - centar.y), 2);
-		return (rOkomiti * razlikaX + rVodoravni * razlikaY) <= rVodoravni
-				* rOkomiti;
+		double razlikaX = (int) Math.pow((x - centar.x), 2)
+				/ Math.pow(rVodoravni, 2);
+		double razlikaY = (int) Math.pow((y - centar.y), 2)
+				/ Math.pow(rOkomiti, 2);
+		return (razlikaX + razlikaY <= 1);
 	}
 
 	@Override
