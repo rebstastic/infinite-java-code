@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.2.3" timestamp="2015-05-13T23:09:20.751">
+<file name="D:\FER\6. semestar\Java\HW09\calculator\src\main\java\hr\fer\zemris\java\gui\layouts\RCPosition.java">
+<violation beginline="96" endline="96" begincolumn="25" endcolumn="45" rule="UselessParentheses" ruleset="Unnecessary" package="hr.fer.zemris.java.gui.layouts" class="RCPosition" method="equals" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.2.3/pmd-java/rules/java/unnecessary.html#UselessParentheses" priority="4">
+Useless parentheses.
+</violation>
+<violation beginline="96" endline="96" begincolumn="52" endcolumn="78" rule="UselessParentheses" ruleset="Unnecessary" package="hr.fer.zemris.java.gui.layouts" class="RCPosition" method="equals" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.2.3/pmd-java/rules/java/unnecessary.html#UselessParentheses" priority="4">
+Useless parentheses.
+</violation>
+</file>
+</pmd>
