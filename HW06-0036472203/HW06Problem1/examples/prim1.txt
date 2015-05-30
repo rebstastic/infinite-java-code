@@ -1,0 +1,5 @@
+			load r7, @poruka	; ucitaj poruku u r7
+			echo r7				; ispisi na konzolu poruku
+			halt
+	
+@poruka:	DEFSTR "Hello World!\n"
